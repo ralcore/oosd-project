@@ -6,8 +6,7 @@ class Player : public Entity
 public:
 	Player();
 	Player(float posx, float posy);
-	void tick(sf::Time frame_time);
-	std::vector<std::shared_ptr<sf::Drawable>> getDrawables();
-	void handleInput(sf::Time frame_time);
+	void tick(sf::Int32 frametime);
+	void handleInput(sf::Int32 t);
 };
 

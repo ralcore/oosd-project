@@ -10,10 +10,8 @@ protected:
 
 public:
 	virtual void tick();
-	virtual std::vector<std::shared_ptr<sf::Drawable>> getDrawables();
-	void move();
+	bool move();
 	void die();
-	void shoot();
 	Entity();
 	Entity(float posx, float posy, int colorr, int colorg, int colorb);
 };

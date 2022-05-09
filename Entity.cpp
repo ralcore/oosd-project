@@ -24,24 +24,20 @@ Entity::Entity(float posx, float posy, int colorr, int colorg, int colorb) {
 	shape.setRotation(0);
 }
 
-void Entity::move()
+bool Entity::move()
 {
-	// TODO: check for collisions with wall
-	// apply movement
-	shape.setPosition(shape.getPosition().x + vel.x, shape.getPosition().y + vel.y);
-	std::cout << std::to_string(shape.getPosition().x) + "\n";
-	std::cout << std::to_string(shape.getPosition().y) + "\n";
+	// takes vel (set by child classes), checks for collisions
+	// and applies new position.
+	// returns 0 if collision found and movement should not be made.
+
+	sf::Vector2 newpos = shape.getPosition() + vel;
+	// TODO: check for collisions with wall, return 0 if collision found
+	// else: apply movement changes and return 1
+	shape.setPosition(newpos);
+	return true;
 }
 
 void Entity::tick()
 {
 	move();
-}
-
-std::vector<std::shared_ptr<sf::Drawable>> Entity::getDrawables()
-{
-	std::vector<std::shared_ptr<sf::Drawable>> drawables;
-	auto ptr = std::make_shared<sf::CircleShape>(shape);
-	drawables.push_back(ptr);
-	return drawables;
 }

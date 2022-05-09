@@ -12,15 +12,21 @@ Player::Player(float posx, float posy) : Entity(posx, posy, 255, 255, 255)
 
 }
 
-void Player::tick(sf::Time frame_time) 
+void Player::tick(sf::Int32 frametime) 
 {
+	// handles all player-related logic
+
 	// handling input
-	handleInput(frame_time);
+	handleInput(frametime);
 	Entity::tick();
 }
 
-void Player::handleInput(sf::Time frame_time)
+void Player::handleInput(sf::Int32 t)
 {
+	// based on time passed since last frame,
+	// gets keyboard inputs and calculates v = u + at
+	// to get the player's velocity on this frame
+
 	// gather player movement inputs + corresponding acceleration values
 	sf::Vector2<float> a(0, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
@@ -41,17 +47,8 @@ void Player::handleInput(sf::Time frame_time)
 		a.y += 2;
 	}
 
-	// getting time value
-	float t = frame_time.asSeconds();
-
 	// calculate new velocity values (suvat)
 	vel.x = vel.x + t * a.x;
 	vel.y = vel.y + t * a.y;
 
-}
-
-std::vector<std::shared_ptr<sf::Drawable>> Player::getDrawables()
-{
-	std::vector<std::shared_ptr<sf::Drawable>> drawables = Entity::getDrawables();
-	return drawables;
 }
