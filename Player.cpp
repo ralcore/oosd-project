@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <iostream>
 
 // creates default white entity
 Player::Player() : Entity(0, 0, 255, 255, 255)
@@ -29,23 +30,36 @@ void Player::handleInput(sf::Int32 t)
 
 	// gather player movement inputs + corresponding acceleration values
 	sf::Vector2<float> a(0, 0);
+	const float ACC = 0.015;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		a.x += 2;
+		a.x -= ACC;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		a.x -= 2;
+		a.x += ACC;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		// negative y is upwards in sfml
-		a.y -= 2;
+		a.y -= ACC;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
 	{
-		a.y += 2;
+		a.y += ACC;
 	}
+	
+	// prevent player being faster on diagonals
+	if (a.x != 0 && a.y != 0) {
+		a /= (float)sqrt(2);
+	}
+
+	// applying friction values
+	const float FRIC = 0.015;
+	a.x += (0 - vel.x * FRIC);
+	a.y += (0 - vel.y * FRIC);
+
+	std::cout << std::to_string(vel.x) + "\n";
 
 	// calculate new velocity values (suvat)
 	vel.x = vel.x + t * a.x;

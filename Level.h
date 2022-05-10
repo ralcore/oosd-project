@@ -9,6 +9,6 @@ private:
 public:
 	Level();
 	void tick(sf::Int32 frametime);
-	void draw(sf::Window& window);
+	void draw(sf::RenderWindow& window);
 };
 

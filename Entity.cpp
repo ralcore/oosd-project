@@ -6,11 +6,11 @@ Entity::Entity() {
 	vel.x = 0;
 	vel.y = 0;
 	sf::Color color(0, 0, 0);
-	sf::CircleShape shape(100);
-	shape.setRadius(16);
-	shape.setFillColor(color);
-	shape.setPosition(0, 0);
-	shape.setRotation(0);
+	sf::CircleShape baseshape(100);
+	baseshape.setRadius(16);
+	baseshape.setFillColor(color);
+	baseshape.setPosition(0, 0);
+	baseshape.setRotation(0);
 }
 
 Entity::Entity(float posx, float posy, int colorr, int colorg, int colorb) {
@@ -18,10 +18,10 @@ Entity::Entity(float posx, float posy, int colorr, int colorg, int colorb) {
 	vel.y = 0;
 	sf::Color color(colorr, colorg, colorb);
 	sf::CircleShape shape(100);
-	shape.setRadius(16);
-	shape.setFillColor(color);
-	shape.setPosition(posx, posy);
-	shape.setRotation(0);
+	baseshape.setRadius(16);
+	baseshape.setFillColor(color);
+	baseshape.setPosition(posx, posy);
+	baseshape.setRotation(0);
 }
 
 bool Entity::move()
@@ -30,14 +30,23 @@ bool Entity::move()
 	// and applies new position.
 	// returns 0 if collision found and movement should not be made.
 
-	sf::Vector2 newpos = shape.getPosition() + vel;
+	sf::Vector2 newpos = baseshape.getPosition() + vel;
 	// TODO: check for collisions with wall, return 0 if collision found
 	// else: apply movement changes and return 1
-	shape.setPosition(newpos);
+	baseshape.setPosition(newpos);
 	return true;
 }
 
 void Entity::tick()
 {
 	move();
+}
+
+void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	// You can draw other high-level objects
+	sf::CircleShape shape(100.f);
+	shape.setFillColor(sf::Color::Green);
+	target.draw(shape);
+	target.draw(baseshape, states);
 }

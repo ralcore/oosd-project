@@ -1,2 +1,4 @@
-﻿  Entity.cpp
-  oosd project.vcxproj -> C:\Users\mlipy\Documents\_THA DOCUMENTS\Uni Stuff\C Projects\2022-04-24 oosd project\oosd project\Debug\oosd project.exe
+﻿  Player.cpp
+C:\Users\Dell\Desktop\oosd\oosd-project\Player.cpp(33,25): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\Dell\Desktop\oosd\oosd-project\Player.cpp(58,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+  oosd project.vcxproj -> C:\Users\Dell\Desktop\oosd\oosd-project\Debug\oosd project.exe

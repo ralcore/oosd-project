@@ -11,7 +11,9 @@ void Level::tick(sf::Int32 frametime)
 	player.tick(frametime);
 }
 
-void Level::draw(sf::Window& window)
+void Level::draw(sf::RenderWindow& window)
 {
-
+	window.clear();
+	window.draw(player);
+	window.display();
 }

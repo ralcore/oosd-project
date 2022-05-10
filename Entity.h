@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Entity
+class Entity : public sf::Drawable
 {
 protected:
-	sf::CircleShape shape;
+	sf::CircleShape baseshape;
 	sf::Color color;
 	sf::Vector2<float> vel;
 
@@ -14,5 +14,6 @@ public:
 	void die();
 	Entity();
 	Entity(float posx, float posy, int colorr, int colorg, int colorb);
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 
