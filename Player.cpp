@@ -49,7 +49,10 @@ void Player::handleInput(sf::Int32 t)
 		a.y += ACC;
 	}
 	
-	// prevent player being faster on diagonals
+	// prevent player being faster on diagonal
+	// magic number is pythag:
+	// triangle with sides 1, 1 will have diagonal of sqrt(2)
+	// divide sides by sqrt(2) to normalise diagonal to 1
 	if (a.x != 0 && a.y != 0) {
 		a /= (float)sqrt(2);
 	}

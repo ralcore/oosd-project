@@ -147,12 +147,14 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="oosd project.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
