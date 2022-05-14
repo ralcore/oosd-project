@@ -41,36 +41,31 @@ bool Entity::move(Tilemap tilemap)
 	index.y = floor(index.y);
 	index *= 32.f;
 
-	for (int i = -32; i <= 32; i += 32) {
-		for (int j = -32; j <= 32; j += 32) {
-			sf::Vector2f currtile(index.x + i, index.y + j);
-			if (tilemap.getTile(currtile) == 1) {
-				// tile needs checking - check if player has collided
-				// left
-				if (distanceToLine(newpos, currtile, sf::Vector2f(currtile.x, currtile.y + 32)) < 16) {
-					std::cout << "left collision!!!!1" << std::endl;
-					newpos.x = baseshape.getPosition().x;
-					vel.x = 0;
-				}
-				// right
-				if (distanceToLine(newpos, sf::Vector2f(currtile.x + 32, currtile.y), sf::Vector2f(currtile.x + 32, currtile.y + 32)) < 16) {
-					std::cout << "right collision!!!!1" << std::endl;
-					newpos.x = baseshape.getPosition().x;
-					vel.x = 0;
-				}
-				// top
-				if (distanceToLine(newpos, currtile, sf::Vector2f(currtile.x + 32, currtile.y)) < 16) {
-					std::cout << "top collision!!!!1" << std::endl;
-					newpos.y = baseshape.getPosition().y;
-					vel.y = 0;
-				}
-				// bottom
-				if (distanceToLine(newpos, sf::Vector2f(currtile.x, currtile.y + 32), sf::Vector2f(currtile.x + 32, currtile.y + 32)) < 16) {
-					std::cout << "bottom collision!!!!1" << std::endl;
-					newpos.y = baseshape.getPosition().y;
-					vel.y = 0;
-				}
-			}
+	if (tilemap.getTile(index) == 1) {
+		// tile needs checking - check if player has collided
+		// left
+		if (distanceToLine(newpos, index, sf::Vector2f(index.x, index.y + 32)) < 16) {
+			std::cout << "left collision!!!!1" << std::endl;
+			newpos.x = baseshape.getPosition().x;
+			vel.x = -vel.x;
+		}
+		// right
+		if (distanceToLine(newpos, sf::Vector2f(index.x + 32, index.y), sf::Vector2f(index.x + 32, index.y + 32)) < 16) {
+			std::cout << "right collision!!!!1" << std::endl;
+			newpos.x = baseshape.getPosition().x;
+			vel.x = -vel.x;
+		}
+		// top
+		if (distanceToLine(newpos, index, sf::Vector2f(index.x + 32, index.y)) < 16) {
+			std::cout << "top collision!!!!1" << std::endl;
+			newpos.y = baseshape.getPosition().y;
+			vel.y = -vel.y;
+		}
+		// bottom
+		if (distanceToLine(newpos, sf::Vector2f(index.x, index.y + 32), sf::Vector2f(index.x + 32, index.y + 32)) < 16) {
+			std::cout << "bottom collision!!!!1" << std::endl;
+			newpos.y = baseshape.getPosition().y;
+			vel.y = -vel.y;
 		}
 	}
 

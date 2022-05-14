@@ -82,6 +82,6 @@ int Tilemap::getTile(sf::Vector2<float> pos)
         return savedtiles[pos.x + pos.y * tileswidth];
     } else {
         std::cout << "player out of bounds" << std::endl;
-        return 0;
+        return 1;
     }
 }
