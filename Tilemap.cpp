@@ -1,12 +1,18 @@
 #include "Tilemap.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <iterator>
 
-bool Tilemap::load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
+bool Tilemap::load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, const int numtiles, unsigned int width, unsigned int height)
 {
-    sf::Image image;
-    image.create(16, 16, sf::Color(80, 70, 70));
-    image.saveToFile(tileset);
+    // save tiles array
+    for (int i = 0; i < numtiles; i++) {
+        savedtiles.push_back(tiles[i]);
+    }
+
+    // save width
+    tileswidth = width;
 
     // load the tileset texture
     if (!m_tileset.loadFromFile(tileset))
@@ -56,4 +62,26 @@ void Tilemap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
     // draw the vertex array
     target.draw(m_vertices, states);
+
+}
+
+int Tilemap::getTile(sf::Vector2<float> pos)
+{
+    // returns the type of tile located at given float coordinates
+    // i.e. getTile(1.23, 6.53) where tile 0, 0 is wall, returns 1
+
+    // reduce pos to array indexes
+    pos /= 32.f;
+    pos.x = floor(pos.x);
+    pos.y = floor(pos.y);
+
+    // convert to 1d vector index and return value
+    int index = pos.x + pos.y * tileswidth;
+    if (0 <= index && index <= savedtiles.size())
+    {
+        return savedtiles[pos.x + pos.y * tileswidth];
+    } else {
+        std::cout << "player out of bounds" << std::endl;
+        return 0;
+    }
 }

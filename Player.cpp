@@ -2,7 +2,7 @@
 #include <iostream>
 
 // creates default white entity
-Player::Player() : Entity(0, 0, 255, 255, 255)
+Player::Player() : Entity(16, 16, 255, 255, 255)
 {
 
 }
@@ -13,13 +13,13 @@ Player::Player(float posx, float posy) : Entity(posx, posy, 255, 255, 255)
 
 }
 
-void Player::tick(sf::Int32 frametime) 
+void Player::tick(sf::Int32 frametime, Tilemap tilemap) 
 {
 	// handles all player-related logic
 
 	// handling input
 	handleInput(frametime);
-	Entity::tick();
+	Entity::tick(tilemap);
 }
 
 void Player::handleInput(sf::Int32 t)
@@ -62,7 +62,7 @@ void Player::handleInput(sf::Int32 t)
 	a.x += (0 - vel.x * FRIC);
 	a.y += (0 - vel.y * FRIC);
 
-	std::cout << std::to_string(vel.x) + "\n";
+	std::cout << std::to_string(vel.x) << std::endl;
 
 	// calculate new velocity values (suvat)
 	vel.x = vel.x + t * a.x;

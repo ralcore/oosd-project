@@ -1,10 +1,12 @@
 #pragma once
 #include "Player.h"
+#include "Tilemap.h"
 
 class Level
 {
 private:
 	Player player;
+	Tilemap tilemap;
 	
 public:
 	Level();
