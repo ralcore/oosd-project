@@ -10,7 +10,7 @@ private:
 	
 public:
 	Level();
-	void tick(sf::Int32 frametime);
+	void tick(sf::Int32 frametime, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 };
 

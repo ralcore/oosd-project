@@ -33,7 +33,7 @@ void Window::windowLoop()
 
         window.clear();
         // run game logic tick
-        level.tick(frametime);
+        level.tick(frametime, window);
 
         // run game draw tick
         level.draw(window);

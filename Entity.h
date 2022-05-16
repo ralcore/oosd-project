@@ -15,6 +15,7 @@ public:
 	Entity();
 	Entity(float posx, float posy, int colorr, int colorg, int colorb);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	void draw(sf::RenderWindow& window);
 	float distanceToLine(sf::Vector2f point, sf::Vector2f line_a, sf::Vector2f line_b);
 };
 
