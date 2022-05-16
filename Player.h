@@ -12,5 +12,8 @@ public:
 	void tick(sf::Int32 frametime, Tilemap tilemap, sf::RenderWindow& window);
 	void handleInput(sf::Int32 t);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	float getAngle();
+	sf::Vector2f getPosition();
+	sf::Vector2f getShieldOrigin();
 };
 

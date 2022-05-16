@@ -82,10 +82,23 @@ void Player::handleInput(sf::Int32 t)
 	a.x += (0 - vel.x * FRIC);
 	a.y += (0 - vel.y * FRIC);
 
-	std::cout << std::to_string(vel.x) << std::endl;
-
 	// calculate new velocity values (suvat)
 	vel.x = vel.x + t * a.x;
 	vel.y = vel.y + t * a.y;
 
+}
+
+float Player::getAngle()
+{
+	return shield.getRotation();
+}
+
+sf::Vector2f Player::getPosition()
+{
+	return baseshape.getPosition();
+}
+
+sf::Vector2f Player::getShieldOrigin()
+{
+	return shield.getOrigin();
 }
