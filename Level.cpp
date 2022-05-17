@@ -12,6 +12,7 @@ void Level::tick(sf::Int32 frametime)
 	// player actions first
 	player.tick(frametime);
 
+	//ticks through the vector of enemies
 	for (auto &e: enemies)
 	{
 		e.tick(frametime);
