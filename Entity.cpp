@@ -6,7 +6,6 @@ Entity::Entity() {
 	vel.x = 0;
 	vel.y = 0;
 	sf::Color color(0, 0, 0);
-	sf::CircleShape baseshape(100);
 	baseshape.setRadius(16);
 	baseshape.setFillColor(color);
 	baseshape.setPosition(0, 0);
@@ -17,7 +16,6 @@ Entity::Entity(float posx, float posy, int colorr, int colorg, int colorb) {
 	vel.x = 0;
 	vel.y = 0;
 	sf::Color color(colorr, colorg, colorb);
-	sf::CircleShape shape(100);
 	baseshape.setRadius(16);
 	baseshape.setFillColor(color);
 	baseshape.setPosition(posx, posy);
@@ -44,9 +42,5 @@ void Entity::tick()
 
 void Entity::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	// You can draw other high-level objects
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
-	target.draw(shape);
 	target.draw(baseshape, states);
 }

@@ -1,10 +1,13 @@
 #pragma once
 #include "Player.h"
+#include "Enemy.h"
+#include <vector>
 
 class Level
 {
 private:
 	Player player;
+	std::vector<Enemy> enemies;
 	
 public:
 	Level();

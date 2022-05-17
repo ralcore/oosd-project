@@ -16,5 +16,7 @@ public:
 	Window();
 	void windowLoop();
 	Level loadLevel(int levelnum);
+	int time = 0;
+	int direction = 0;
 };
 
