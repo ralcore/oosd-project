@@ -8,7 +8,7 @@ class Level
 private:
 	Player player;
 	Tilemap tilemap;
-	std::vector<Projectile> projectiles;
+	std::vector<Projectile*> projectiles;
 	
 public:
 	Level();

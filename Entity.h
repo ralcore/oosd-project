@@ -13,9 +13,11 @@ public:
 	virtual void tick(Tilemap tilemap);
 	bool move(Tilemap tilemap);
 	Entity();
-	Entity(float posx, float posy, int colorr, int colorg, int colorb);
+	Entity(float posx, float posy, int colorr, int colorg, int colorb, float radius);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void draw(sf::RenderWindow& window);
 	float distanceToLine(sf::Vector2f point, sf::Vector2f line_a, sf::Vector2f line_b);
+	sf::Vector2f getPosition();
+	float getRadius();
 };
 

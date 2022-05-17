@@ -2,16 +2,17 @@
 #include <iostream>
 
 // creates default white entity
-Player::Player() : Entity(64, 64, 255, 255, 255), shield(sf::Vector2f(32, 8))
+Player::Player() : Entity(64, 64, 255, 255, 255, 16), shield(sf::Vector2f(32, 8)), health(3)
 {
 	shield.setFillColor(sf::Color(0, 255, 0));
 	shield.setOrigin(sf::Vector2f(16, 32));
 }
 
 // creates default white entity in given location
-Player::Player(float posx, float posy) : Entity(posx, posy, 255, 255, 255)
+Player::Player(float posx, float posy) : Entity(posx, posy, 255, 255, 255, 16), shield(sf::Vector2f(32, 8)), health(3)
 {
-
+	shield.setFillColor(sf::Color(0, 255, 0));
+	shield.setOrigin(sf::Vector2f(16, 32));
 }
 
 void Player::tick(sf::Int32 frametime, Tilemap tilemap, sf::RenderWindow& window) 
@@ -93,12 +94,12 @@ float Player::getAngle()
 	return shield.getRotation();
 }
 
-sf::Vector2f Player::getPosition()
-{
-	return baseshape.getPosition();
-}
-
 sf::Vector2f Player::getShieldOrigin()
 {
 	return shield.getOrigin();
+}
+
+void Player::hurt()
+{
+	health--;
 }

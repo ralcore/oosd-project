@@ -6,21 +6,19 @@ Entity::Entity() {
 	vel.x = 0;
 	vel.y = 0;
 	sf::Color color(0, 0, 0);
-	sf::CircleShape baseshape(96);
 	baseshape.setRadius(16);
 	baseshape.setOrigin(16, 16);
 	baseshape.setFillColor(color);
 	baseshape.setRotation(0);
 }
 
-Entity::Entity(float posx, float posy, int colorr, int colorg, int colorb) {
+Entity::Entity(float posx, float posy, int colorr, int colorg, int colorb, float radius) {
 	vel.x = 0;
 	vel.y = 0;
 	sf::Color color(colorr, colorg, colorb);
-	sf::CircleShape shape(96);
-	baseshape.setRadius(16);
+	baseshape.setRadius(radius);
 	baseshape.setFillColor(color);
-	baseshape.setOrigin(16, 16);
+	baseshape.setOrigin(radius, radius);
 	baseshape.setPosition(posx, posy);
 	baseshape.setRotation(0);
 }
@@ -87,4 +85,12 @@ float Entity::distanceToLine(sf::Vector2f point, sf::Vector2f line_1, sf::Vector
 	float numerator = abs((line_2.x - line_1.x) * (line_1.y - point.y) - (line_1.x - point.x) * (line_2.y - line_1.y));
 	float denominator = sqrt((line_2.x - line_1.x) * (line_2.x - line_1.x) + (line_2.y - line_1.y) * (line_2.y - line_1.y));
 	return numerator / denominator;
+}
+
+sf::Vector2f Entity::getPosition() {
+	return baseshape.getPosition();
+}
+
+float Entity::getRadius() {
+	return baseshape.getRadius();
 }

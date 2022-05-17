@@ -17,7 +17,7 @@ Level::Level() : player(), tilemap()
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
 	tilemap.load("tiles.png", sf::Vector2u(32, 32), tiles, sizeof(tiles) / sizeof(*tiles), 24, 11);
 	Projectile projectile(128, 128, 0);
-	projectiles.push_back(projectile);
+	projectiles.push_back(new Projectile(projectile));
 }
 
 void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
@@ -26,7 +26,7 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 	player.tick(frametime, tilemap, window);
 
 	for (auto& projectile : projectiles) {
-		projectile.tick(frametime, player, tilemap);
+		projectile->tick(frametime, player, tilemap, projectiles);
 	}
 }
 
@@ -36,7 +36,7 @@ void Level::draw(sf::RenderWindow& window)
 	window.draw(tilemap);
 	window.draw(player);
 	for (auto& projectile : projectiles) {
-		projectile.draw(window);
+		projectile->draw(window);
 	}
 	window.display();
 }
