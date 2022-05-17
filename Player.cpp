@@ -19,7 +19,6 @@ void Player::tick(sf::Int32 frametime, Tilemap tilemap, sf::RenderWindow& window
 {
 	// handles all player-related logic
 	
-
 	// handling input
 	handleInput(frametime);
 	Entity::tick(tilemap);

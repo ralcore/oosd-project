@@ -14,5 +14,6 @@ public:
 	sf::Vector2f setAngle(float angle);
 	bool collisionShield(Player& player);
 	bool collisionEntity(Entity& entity);
+	void kill(std::vector<Projectile*>& p);
 };
 

@@ -17,9 +17,10 @@ void Projectile::tick(sf::Int32 frametime, Player& player, Tilemap& tilemap, std
 	// adjust vel for framerate
 	vel = raw_vel * (float)frametime;
 
-	// run move function
+	// run move function, if collided with wall kill
 	if (Entity::move(tilemap)) {
-		// if returns true (? check code) kill proj
+		kill(projectiles);
+		return;
 	}
 
 	// check for shield collision
@@ -32,12 +33,7 @@ void Projectile::tick(sf::Int32 frametime, Player& player, Tilemap& tilemap, std
 	if (collisionEntity(player)) {
 		// hurt player
 		player.hurt();
-		// remove reference to self
-		std::vector<Projectile*>& p = projectiles;
-		p.erase(std::remove(p.begin(), p.end(), this), p.end());
-		remove(projectiles.begin(), projectiles.end(), this);
-		// destroy self
-		delete this;
+		kill(projectiles);
 		return;
 	}
 	// check for enemies collision (same code as player)
@@ -101,4 +97,12 @@ bool Projectile::collisionEntity(Entity& entity) {
 
 	return (distance < entity.getRadius() + baseshape.getRadius()) ? true : false;
 
+}
+
+void Projectile::kill(std::vector<Projectile*>& p) {
+	// remove pointer from vec
+	p.erase(std::remove(p.begin(), p.end(), this), p.end());
+	// destroy self
+	delete this;
+	return;
 }
