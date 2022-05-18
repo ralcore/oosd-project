@@ -9,6 +9,6 @@ private:
 public:
 	Enemy();
 	Enemy(float posx, float posy);
-	void tick(sf::Int32 frametime);
-	void runAI(sf::Int32 t);
+	void tick(sf::Int32 frametime, Tilemap& tilemap);
+	void runAI(sf::Int32 t, Tilemap& tilemap);
 };

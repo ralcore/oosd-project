@@ -29,7 +29,7 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 
 	for (auto &e: enemies)
 	{
-		e.tick(frametime);
+		e.tick(frametime, tilemap);
 	}
 
 	for (auto& projectile : projectiles) {

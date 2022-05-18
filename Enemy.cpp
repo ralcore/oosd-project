@@ -4,27 +4,27 @@
 #include <cstdlib>
 
 // creates default red entity
-Enemy::Enemy() : Entity(50, 50, 255, 0, 0), randtime(0), direction(0)
+Enemy::Enemy() : Entity(50, 50, 255, 0, 0, 16), randtime(0), direction(0)
 {
 	srand((unsigned)time(NULL));
 }
 
 // creates default red entity in given location
-Enemy::Enemy(float posx, float posy) : Entity(posx, posy, 255, 0, 0), randtime(0), direction(0)
+Enemy::Enemy(float posx, float posy) : Entity(posx, posy, 255, 0, 0, 16), randtime(0), direction(0)
 {
 	srand((unsigned)time(NULL));
 }
 
-void Enemy::tick(sf::Int32 frametime)
+void Enemy::tick(sf::Int32 frametime, Tilemap& tilemap)
 {
-	runAI(frametime);
+	runAI(frametime, tilemap);
 }
 
-void Enemy::runAI(sf::Int32 t)
+void Enemy::runAI(sf::Int32 t, Tilemap& tilemap)
 {
-	Entity::move();
+	Entity::move(tilemap);
 
-	if (randtime == 0 or Entity::move() == 0)
+	if (randtime == 0 or Entity::move(tilemap) == 1)
 	{
 		randtime = rand() % 1000;
 
@@ -59,7 +59,7 @@ void Enemy::runAI(sf::Int32 t)
 				break;
 		}
 
-		const float FRIC = 0.015;
+		const float FRIC = 0.030;
 		a.x += (0 - vel.x * FRIC);
 		a.y += (0 - vel.y * FRIC);
 
