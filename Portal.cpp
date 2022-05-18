@@ -28,12 +28,12 @@ void Portal::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(baseshape, states);
 }
 
-bool Portal::collisionPortal(Portal& portal) {
+bool Portal::collisionPortal(Player& player) {
 
-	// checks entity for collision with projectile using radius
-	sf::Vector2f ent_pos(portalX, portalY);
-	sf::Vector2f proj_pos(baseshape.getPosition());
-	sf::Vector2f diff_pos(ent_pos - proj_pos);
+	// checks player for collision with portal using radius
+	sf::Vector2f player_pos(player.getPosition());
+	sf::Vector2f portal_pos(portalX, portalY);
+	sf::Vector2f diff_pos(player_pos - portal_pos);
 	float distance(sqrt(pow(diff_pos.x, 2.f) + pow(diff_pos.y, 2.f)));
 
 	return (distance < 64 + baseshape.getRadius()) ? true : false;

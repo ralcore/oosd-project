@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Tilemap.h"
+#include "Player.h"
 
 class Portal : public sf::Drawable
 {
@@ -19,5 +20,5 @@ public:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void drawPortal();
 	void openPortal();
-	bool collisionPortal(Portal& portal);
+	bool collisionPortal(Player& portal);
 };

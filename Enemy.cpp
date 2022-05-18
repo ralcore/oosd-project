@@ -35,7 +35,7 @@ void Enemy::runAI(sf::Int32 t, Tilemap& tilemap)
 		direction = rand() % 4;
 	}
 
-	std::cout << std::to_string(randtime) + " " + std::to_string(direction) + " ";
+	
 
 	//getting the enemies current position and setting the acceleration
 	sf::Vector2<float> a(0, 0);

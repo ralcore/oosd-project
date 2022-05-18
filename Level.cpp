@@ -42,7 +42,7 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 
 	if (enemies.empty())
 	{
-		portal.openPortal();
+		portal.collisionPortal(player );
 	}
 }
 
