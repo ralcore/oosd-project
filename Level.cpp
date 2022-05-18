@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include "Portal.h"
+#include "GUI.h"
 
 Level::Level() : player(), tilemap()
 {
@@ -24,6 +25,8 @@ Level::Level() : player(), tilemap()
 	enemies.push_back(enemy);
 
 	Portal portal();
+
+	GUI gui();
 }
 
 void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
@@ -45,6 +48,8 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 	{
 		portal.collisionPortal(player);
 	}
+
+	//gui.displayStats(player);
 }
 
 void Level::draw(sf::RenderWindow& window)

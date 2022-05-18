@@ -5,6 +5,7 @@
 #include "Enemy.h"
 #include <vector>
 #include "Portal.h"
+#include "GUI.h"
 
 class Level
 {
@@ -14,6 +15,7 @@ private:
 	std::vector<Enemy> enemies;
 	std::vector<Projectile*> projectiles;
 	Portal portal;
+	GUI gui;
 	
 public:
 	Level();

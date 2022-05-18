@@ -102,3 +102,7 @@ void Player::hurt()
 {
 	health--;
 }
+int Player::getHealth()
+{
+	return health;
+}

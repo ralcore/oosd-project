@@ -16,5 +16,6 @@ public:
 	float getAngle();
 	sf::Vector2f getShieldOrigin();
 	void hurt();
+	int getHealth();
 };
 

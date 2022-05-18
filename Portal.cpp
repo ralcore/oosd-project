@@ -2,6 +2,7 @@
 #include "iostream"
 #include <SFML/Graphics.hpp>
 
+//draws a portal
 Portal::Portal() {
 	vel.x = 0;
 	vel.y = 0;
@@ -12,6 +13,7 @@ Portal::Portal() {
 	baseshape.setRotation(0);
 }
 
+//draws a portal at a fixed coordinate
 Portal::Portal(float posx, float posy, int colorr, int colorg, int colorb, float radius) {
 	vel.x = 0;
 	vel.y = 0;
@@ -23,6 +25,7 @@ Portal::Portal(float posx, float posy, int colorr, int colorg, int colorb, float
 	baseshape.setRotation(0);
 }
 
+//calls the draw to display the portal
 void Portal::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(baseshape, states);
