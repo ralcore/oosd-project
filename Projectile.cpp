@@ -1,18 +1,18 @@
 #include "Projectile.h"
 #include <iostream>
 // creates default white projectile
-Projectile::Projectile() : Entity(64, 64, 255, 0, 0, 4), movespeed(0.01), fromenemy(true)
+Projectile::Projectile() : Entity(64, 64, 255, 0, 0, 4), movespeed(0.25), fromenemy(true)
 {
 	raw_vel = setAngle(0);
 }
 
 // creates default white entity in given location at given angle
-Projectile::Projectile(float posx, float posy, float angle) : Entity(posx, posy, 255, 255, 255, 4), movespeed(0.01), fromenemy(true)
+Projectile::Projectile(float posx, float posy, float angle) : Entity(posx, posy, 255, 255, 255, 4), movespeed(0.25), fromenemy(true)
 {
 	raw_vel = setAngle(angle);
 }
 
-void Projectile::tick(sf::Int32 frametime, Player& player, Tilemap& tilemap, std::vector<Projectile*>& projectiles)
+void Projectile::tick(sf::Int32 frametime, Player& player, Tilemap& tilemap, std::vector<Projectile*>& projectiles, std::vector<Enemy*>& enemies)
 {
 	// adjust vel for framerate
 	vel = raw_vel * (float)frametime;
@@ -24,19 +24,31 @@ void Projectile::tick(sf::Int32 frametime, Player& player, Tilemap& tilemap, std
 	}
 
 	// check for shield collision
-	if (collisionShield(player)) {
-		raw_vel = setAngle(player.getAngle());
-		fromenemy = false;
-	}
+	if (fromenemy == true) {
+		if (collisionShield(player)) {
+			raw_vel = setAngle(player.getAngle());
+			fromenemy = false;
+		}
 
-	// check for player collision
-	if (collisionEntity(player)) {
-		// hurt player
-		player.hurt();
-		kill(projectiles);
-		return;
+		// check for player collision
+		if (collisionEntity(player)) {
+			// hurt player
+			player.hurt();
+			kill(projectiles);
+			return;
+		}
 	}
-	// check for enemies collision (same code as player)
+	else {
+		// check for enemy collisions
+		for (auto& enemy : enemies) {
+			if (collisionEntity(*enemy)) {
+				// kill enemy
+				enemy->kill(enemies);
+				kill(projectiles);
+				return;
+			}
+		}
+	}
 }
 
 void Projectile::draw(sf::RenderWindow& window)
@@ -58,11 +70,6 @@ sf::Vector2f Projectile::setAngle(float angle)
 bool Projectile::collisionShield(Player& player)
 {
 	// calculates collisions with the player's shield using a radius distance check + arc
-
-	if (!fromenemy) {
-		// cannot reflect own projectiles
-		return false;
-	}
 
 	sf::Vector2f player_pos(player.getPosition());
 	sf::Vector2f proj_pos(baseshape.getPosition());
@@ -87,7 +94,7 @@ bool Projectile::collisionShield(Player& player)
 	return true;
 }
 
-bool Projectile::collisionEntity(Entity& entity) {
+bool Projectile::collisionEntity(const Entity& entity) {
 
 	// checks entity for collision with projectile using radius
 	sf::Vector2f ent_pos(entity.getPosition());

@@ -87,10 +87,10 @@ float Entity::distanceToLine(sf::Vector2f point, sf::Vector2f line_1, sf::Vector
 	return numerator / denominator;
 }
 
-sf::Vector2f Entity::getPosition() {
+sf::Vector2f Entity::getPosition() const {
 	return baseshape.getPosition();
 }
 
-float Entity::getRadius() {
+float Entity::getRadius() const {
 	return baseshape.getRadius();
 }

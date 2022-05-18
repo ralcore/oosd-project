@@ -5,7 +5,7 @@
 #include <vector>
 #include <sstream>
 
-Window::Window() : level(loadLevel(1)), window(sf::VideoMode(640, 640), "SFML works!")
+Window::Window() : level(loadLevel(1)), window(sf::VideoMode(576, 576), "SFML works!")
 {
     // constructs a window, alongside a default Level of level 1
     // TODO: window size will need later adjustment
@@ -72,13 +72,13 @@ Level Window::loadLevel(int levelnum)
             row.push_back(word);
         }
 
-        //std::vector<Enemy> enemies;
+        std::vector<Enemy*> enemies;
         // use vector to create objects
         // unfortunately we cannot run a switch statement on strings
         if (row[0] == "enemy") {
             // create enemy
-            //Enemy enemy();
-            //enemies.push_back(enemy());
+            Enemy enemy;
+            enemies.push_back(new Enemy(enemy));
         }
         else if (row[0] == "player") {
             // construct player with coordinates
@@ -86,7 +86,7 @@ Level Window::loadLevel(int levelnum)
         }
         else if (row[0] == "tilemap") {
             // create tilemap
-            //Tilemap tilemap();
+            Tilemap tilemap();
         }
 
         // push references to level constructor + return level
