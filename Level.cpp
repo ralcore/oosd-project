@@ -61,7 +61,7 @@ void Level::draw(sf::RenderWindow& window)
 
 	if (enemies.empty())
 	{
-		portal.drawPortal();
+		window.draw(portal);
 	}
 	window.display();
 }
