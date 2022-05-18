@@ -29,10 +29,10 @@ bool Entity::move(Tilemap tilemap)
 	// and applies new position.
 	// returns 1 if collision found and movement should not be made.
 
-	sf::Vector2 newpos = baseshape.getPosition() + vel;
+	sf::Vector2f newpos = baseshape.getPosition() + vel;
 
 	// round to nearest 32
-	sf::Vector2 index = newpos / 32.f;
+	sf::Vector2f index = newpos / 32.f;
 	index.x = floor(index.x);
 	index.y = floor(index.y);
 	index *= 32.f;

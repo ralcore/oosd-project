@@ -15,6 +15,7 @@ private:
 	
 public:
 	Level();
+	Level(int levelnumber);
 	void tick(sf::Int32 frametime, sf::RenderWindow& window);
 	void draw(sf::RenderWindow& window);
 };
