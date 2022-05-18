@@ -9,8 +9,6 @@ private:
 	sf::Int32 frametime;
 	sf::RenderWindow window;
 	Level level;
-	// TODO: menucontroller
-	int state;
 
 public:
 	Window();
