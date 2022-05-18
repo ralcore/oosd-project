@@ -1,6 +1,8 @@
 #include "Level.h"
 #include "Tilemap.h"
 #include <iostream>
+#include <vector>
+#include "Portal.h"
 
 Level::Level() : player(), tilemap()
 {
@@ -20,6 +22,8 @@ Level::Level() : player(), tilemap()
 	projectiles.push_back(new Projectile(projectile));
 	Enemy enemy;
 	enemies.push_back(enemy);
+
+	Portal portal();
 }
 
 void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
@@ -35,6 +39,11 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 	for (auto& projectile : projectiles) {
 		projectile->tick(frametime, player, tilemap, projectiles);
 	}
+
+	if (enemies.empty())
+	{
+		portal.openPortal();
+	}
 }
 
 void Level::draw(sf::RenderWindow& window)
@@ -48,6 +57,11 @@ void Level::draw(sf::RenderWindow& window)
 	for (auto& e : enemies)
 	{
 		window.draw(e);
+	}
+
+	if (enemies.empty())
+	{
+		portal.drawPortal();
 	}
 	window.display();
 }
