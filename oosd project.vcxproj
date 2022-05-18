@@ -151,6 +151,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="oosd project.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="Window.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="Window.h" />

@@ -1,6 +1,8 @@
 #include "Level.h"
 #include "Tilemap.h"
 #include <iostream>
+#include <vector>
+#include "Portal.h"
 
 Level::Level() : player(300, 152), tilemap()
 {
@@ -20,7 +22,7 @@ Level::Level() : player(300, 152), tilemap()
 	projectiles.push_back(new Projectile(projectile));
 	Enemy enemy;
 	enemies.push_back(new Enemy(enemy));
-	enemies.push_back(new Enemy(enemy));
+	Portal portal();
 }
 
 Level::Level(int levelnumber) : player(300, 152), tilemap()
@@ -103,6 +105,12 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 	for (auto& projectile : projectiles) {
 		projectile->tick(frametime, player, tilemap, projectiles, enemies);
 	}
+
+	//if no more enemies are in the vector and are therefore all dead, only then does it check to see if the player collides with the portal
+	if (enemies.empty())
+	{
+		portal.collisionPortal(player);
+	}
 }
 
 void Level::draw(sf::RenderWindow& window)
@@ -116,6 +124,12 @@ void Level::draw(sf::RenderWindow& window)
 	for (auto& e : enemies)
 	{
 		e->draw(window);
+	}
+
+	//if all enemies are dead, display the portal
+	if (enemies.empty())
+	{
+		window.draw(portal);
 	}
 	window.display();
 }
