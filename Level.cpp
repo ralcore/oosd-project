@@ -40,9 +40,10 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 		projectile->tick(frametime, player, tilemap, projectiles);
 	}
 
+	//if no more enemies are in the vector and are therefore all dead, only then does it check to see if the player collides with the portal
 	if (enemies.empty())
 	{
-		portal.collisionPortal(player );
+		portal.collisionPortal(player);
 	}
 }
 
@@ -59,6 +60,7 @@ void Level::draw(sf::RenderWindow& window)
 		window.draw(e);
 	}
 
+	//if all enemies are dead, display the portal
 	if (enemies.empty())
 	{
 		window.draw(portal);

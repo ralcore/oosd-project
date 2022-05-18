@@ -31,6 +31,10 @@ void Portal::draw(sf::RenderTarget& target, sf::RenderStates states) const
 bool Portal::collisionPortal(Player& player) {
 
 	// checks player for collision with portal using radius
+
+	portalX = 304;
+	portalY = 304;
+
 	sf::Vector2f player_pos(player.getPosition());
 	sf::Vector2f portal_pos(portalX, portalY);
 	sf::Vector2f diff_pos(player_pos - portal_pos);
