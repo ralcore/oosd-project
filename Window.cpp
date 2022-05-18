@@ -4,13 +4,15 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <string>
 
-Window::Window() : level(5), window(sf::VideoMode(608, 608), "SFML works!")
+Window::Window() : window(sf::VideoMode(608, 608), "SFML works!")
 {
     // constructs a window, alongside a default Level of level 1
-    // TODO: window size will need later adjustment
 	sf::Clock frametimer;
     sf::Int32 frametime;
+    levelnum = 7;
+    level = new Level(levelnum);
 }
 
 void Window::windowLoop()
@@ -33,9 +35,20 @@ void Window::windowLoop()
 
         window.clear();
         // run game logic tick
-        level.tick(frametime, window);
-
+        int state = level->tick(frametime, window, level);
+        if (state == 1) {
+            // level beaten
+            delete level;
+            levelnum++;
+            level = new Level(levelnum);
+        }
+        else if (state == 2) {
+            // player killed
+            delete level;
+            levelnum = 7;
+            level = new Level(levelnum);
+        }
         // run game draw tick
-        level.draw(window);
+        level->draw(window);
     }
 }

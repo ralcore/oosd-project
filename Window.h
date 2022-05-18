@@ -8,7 +8,8 @@ private:
 	sf::Clock frametimer;
 	sf::Int32 frametime;
 	sf::RenderWindow window;
-	Level level;
+	Level* level;
+	int levelnum;
 
 public:
 	Window();

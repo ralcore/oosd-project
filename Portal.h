@@ -18,7 +18,5 @@ public:
 	Portal();
 	Portal(float posx, float posy, int colorr, int colorg, int colorb, float radius);
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
-	void drawPortal();
-	void openPortal();
 	bool collisionPortal(Player& portal);
 };

@@ -34,6 +34,7 @@ bool Portal::collisionPortal(Player& player) {
 
 	portalX = 304;
 	portalY = 304;
+	baseshape.setPosition(304, 304);
 
 	sf::Vector2f player_pos(player.getPosition());
 	sf::Vector2f portal_pos(portalX, portalY);

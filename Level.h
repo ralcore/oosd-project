@@ -14,11 +14,13 @@ private:
 	std::vector<Enemy*> enemies;
 	std::vector<Projectile*> projectiles;
 	Portal portal;
+	int levelnum;
 	
 public:
 	Level();
 	Level(int levelnumber);
-	void tick(sf::Int32 frametime, sf::RenderWindow& window);
+	int tick(sf::Int32 frametime, sf::RenderWindow& window, Level* loadedlevel);
 	void draw(sf::RenderWindow& window);
+	void draw_text_levels(sf::RenderWindow& window);
 };
 

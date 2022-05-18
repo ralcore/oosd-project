@@ -4,28 +4,15 @@
 #include <vector>
 #include "Portal.h"
 
-Level::Level() : player(300, 152), tilemap()
+Level::Level() : player(300, 152), tilemap(), portal(), levelnum(1)
 {
-	int tiles[] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
+	int tiles[] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
 	tilemap.load("tiles.png", sf::Vector2u(32, 32), tiles, sizeof(tiles) / sizeof(*tiles), 19, 19);
-	Projectile projectile(128, 128, 0);
-	projectiles.push_back(new Projectile(projectile));
-	Enemy enemy;
+	Enemy enemy(288, 256);
 	enemies.push_back(new Enemy(enemy));
-	Portal portal();
 }
 
-Level::Level(int levelnumber) : player(300, 152), tilemap()
+Level::Level(int levelnumber) : player(300, 152), tilemap(), portal(), levelnum(levelnumber)
 {
 	// hacky fix to replace scrapped pointer-based level loading mechanism :[
 	switch (levelnumber) {
@@ -89,11 +76,19 @@ Level::Level(int levelnumber) : player(300, 152), tilemap()
 		enemies.push_back(new Enemy(enemy5));
 		break;
 	}
+	case 6:
+		// game beaten. blank screen
+		break;
+	case 7:
+		// player died. blank screen
+		break;
 	}
 }
 
-void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
+int Level::tick(sf::Int32 frametime, sf::RenderWindow& window, Level* loadedlevel)
 {
+	// returns true if level beaten
+
 	// player actions first
 	player.tick(frametime, tilemap, window);
 
@@ -109,8 +104,16 @@ void Level::tick(sf::Int32 frametime, sf::RenderWindow& window)
 	//if no more enemies are in the vector and are therefore all dead, only then does it check to see if the player collides with the portal
 	if (enemies.empty())
 	{
-		portal.collisionPortal(player);
+		if (portal.collisionPortal(player)) {
+			return 1;
+		}
 	}
+
+	if (player.getHealth() == 0) {
+		return 2;
+	}
+
+	return 0;
 }
 
 void Level::draw(sf::RenderWindow& window)
@@ -131,5 +134,65 @@ void Level::draw(sf::RenderWindow& window)
 	{
 		window.draw(portal);
 	}
+
+	draw_text_levels(window);
+
 	window.display();
+}
+
+void Level::draw_text_levels(sf::RenderWindow& window)
+{
+	// if the game is beaten, say so
+	if (levelnum == 6)
+	{
+		sf::Font font;
+		if (font.loadFromFile("Montserrat-Regular.ttf"))
+		{
+			sf::Text text;
+			text.setFont(font);
+			text.setString("game complete!");
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color(0, 255, 0));
+			text.setPosition(200, 200);
+
+			sf::Text text2;
+			text2.setFont(font);
+			text2.setString("thank you for playing.");
+			text2.setCharacterSize(16);
+			text2.setFillColor(sf::Color(100, 255, 100));
+			text2.setPosition(214, 230);
+
+			window.draw(text);
+			window.draw(text2);
+		}
+		else {
+			std::cout << "ERROR: font not found" << std::endl;
+		}
+	} 
+	else if (levelnum == 7)
+	{
+		sf::Font font;
+		if (font.loadFromFile("Montserrat-Regular.ttf"))
+		{
+			sf::Text text;
+			text.setFont(font);
+			text.setString("you died!");
+			text.setCharacterSize(24);
+			text.setFillColor(sf::Color(255, 0, 0));
+			text.setPosition(250, 200);
+
+			sf::Text text2;
+			text2.setFont(font);
+			text2.setString("try again.");
+			text2.setCharacterSize(16);
+			text2.setFillColor(sf::Color(255, 100, 100));
+			text2.setPosition(266, 230);
+
+			window.draw(text);
+			window.draw(text2);
+		}
+		else {
+			std::cout << "ERROR: font not found" << std::endl;
+		}
+	}
 }
