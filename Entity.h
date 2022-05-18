@@ -17,7 +17,7 @@ public:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	void draw(sf::RenderWindow& window);
 	float distanceToLine(sf::Vector2f point, sf::Vector2f line_a, sf::Vector2f line_b);
-	sf::Vector2f getPosition();
-	float getRadius();
+	sf::Vector2f getPosition() const;
+	float getRadius() const;
 };
 

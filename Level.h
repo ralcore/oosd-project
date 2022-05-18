@@ -10,7 +10,7 @@ class Level
 private:
 	Player player;
 	Tilemap tilemap;
-	std::vector<Enemy> enemies;
+	std::vector<Enemy*> enemies;
 	std::vector<Projectile*> projectiles;
 	
 public:
